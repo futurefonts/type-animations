@@ -4,89 +4,94 @@ from utils.hexToRgb import RGBfromHex
 
 
 
-fontPath = "../fonts/WHOA-Variable-Spine-v0.3.ttf"
+fontPath = "../fonts/TweakDisplayv0.3.ttf"
 
-docWidth=1200
-docHeight=1200
+exportPath = "./exports/simple-a.gif"
 
-saveEnabled = False
+docWidth=1000
+docHeight=1000
+
+saveEnabled = True
 
 docColor = RGBfromHex('#ffffff')
 defaultTextColor = RGBfromHex('#000000')
 
-numFrames = 10
+numFrames = 100
 defaultFrameDuration = 0.01
 
-textSizeMultiplier = 1
+textSize = 128
+leading = textSize * 1.2
 
 textBlocks = []
 
 textBlocks.append({
     "text": 'Dynamic', 
-    "textSize": 330*textSizeMultiplier, 
+    "textSize": textSize, 
     "textColor": defaultTextColor, 
     "lineHeightOffset": 0,
     "keyframes": [
         {
             "pct": 0,
             "axes": {
-                "hrzn": 0,
-                "vert": 0,
-                "rota": 0,
-                "zoom": 0
+                "DIST": 0,
+                "BULK": 0
+            }
+        },
+        {
+            "pct": .25,
+            "axes": {
+                "DIST": 1000,
+                "BULK": 0
             }
         },
         {
             "pct": .5,
             "axes": {
-                "hrzn": 1000,
-                "vert": 0,
-                "rota": 0,
-                "zoom": 0
+                "DIST": 1000,
+                "BULK": 1000
+            }
+        },
+        {
+            "pct": .75,
+            "axes": {
+                "DIST": 0,
+                "BULK": 1000
             }
         },
         {
             "pct": 1,
             "axes": {
-                "hrzn": 1000,
-                "vert": 1000,
-                "rota": 0,
-                "zoom": 0
+                "DIST": 0,
+                "BULK": 0
             }
         }
     ]
 })
 textBlocks.append({
-    "text": 'Range', 
-    "textSize": 450*textSizeMultiplier, 
+    "text": 'Flex', 
+    "textSize": textSize * 1.5, 
     "textColor": defaultTextColor, 
     "lineHeightOffset": 0,
     "keyframes": [
         {
             "pct": 0,
             "axes": {
-                "hrzn": 0,
-                "vert": 0,
-                "rota": 0,
-                "zoom": 0
+                "DIST": 0,
+                "BULK": 1000
             }
         },
         {
             "pct": .5,
             "axes": {
-                "hrzn": 0,
-                "vert": -10000,
-                "rota": 0,
-                "zoom": 0
+                "DIST": 1000,
+                "BULK": 0
             }
         },
         {
             "pct": 1,
             "axes": {
-                "hrzn": -1000,
-                "vert": -1000,
-                "rota": 0,
-                "zoom": 0
+                "DIST": 0,
+                "BULK": 1000
             }
         }
     ]
@@ -94,21 +99,25 @@ textBlocks.append({
 
 shouldEqualizeKeyframePct = False
 
-spaceBetweenBlocks = 10*textSizeMultiplier 
+spaceBetweenBlocks = leading - textSize 
 
-textBoxVerticalOffset = 0
+textBoxVerticalOffset = 10
 
 # Change this for each font. It's used calculate the height of the text line, so it can be spaced evenly vertically. When displayHelpers are visible, the yellow box should extend from the baseline to the top of the main mass of your letterforms.
-heightOffsetPct = 0.49
+heightOffsetPct = 0.8
 
 # show this to help set theHeight offset. 
-displayHelpers = True
+displayHelpers = False
 
 def main():
     setup()
-    drawFrames()      
+    drawFrames()
+    
+    if saveEnabled:
+        saveImage(exportPath)    
 
 def setup():
+    variableFontInfo()
     newDrawing()
     #setCurrentLetter(letter)
     prepKeyframes()
@@ -140,11 +149,15 @@ def equalizeKeyframePct():
 def drawFrames():
     for frameIndex in range(numFrames):
         drawFrame(frameIndex)
+
+def addBackground():
+    fill(*docColor)
+    rect(0,0, docWidth, docHeight)
             
 def drawFrame(frameIndex):
     newPage(docWidth, docHeight)
-    fill(*docColor)
-    rect(0,0, docWidth, docHeight)
+
+    addBackground()
     frameDuration(defaultFrameDuration)
     
     i = 1
@@ -153,10 +166,7 @@ def drawFrame(frameIndex):
         axesVals = frameAxesVals(frameIndex, textBlock)
         setMainText(textBlock, docWidth/2, textBlock['yPos'], axesVals)
         i += 1
-        
-    if saveEnabled:
-        saveImage("exports/frames/peshka-" + str(frameIndex) + '.pdf', multipage=False)
-        
+       
 
 def frameAxesVals(frameIndex, textBlock):
     keyframes = relevantKeyframes(frameIndex, textBlock)
@@ -250,8 +260,7 @@ def variableFontInfo():
 def setMainText(textBlock, xPos, yPos, axes):
     c = defaultTextColor
     txt = FormattedString()
-    
-    variableFontInfo()    
+
     for axis in axes:        
         txt.fontVariations(**axis)
 
