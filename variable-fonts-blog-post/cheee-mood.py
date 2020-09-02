@@ -16,8 +16,8 @@ saveEnabled = True
 docColor = RGBfromHex('#ffffff')
 defaultTextColor = RGBfromHex('#000000')
 
-numFrames = 100
-defaultFrameDuration = 0.04
+numFrames = 50
+defaultFrameDuration = 0.08
 
 textSize = 220
 leading = textSize * 1.2

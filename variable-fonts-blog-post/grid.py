@@ -26,8 +26,8 @@ saveEnabled = True
 docColor = RGBfromHex('#ffffff')
 defaultTextColor = RGBfromHex('#000000')
 
-numFrames = 100
-defaultFrameDuration = 0.04
+numFrames = 40
+defaultFrameDuration = 0.08
 
 textSize = 90
 leading = textSize * 1
@@ -67,7 +67,7 @@ textBlocks.append({
         {
             "pct": 0,
             "axes": {
-                "SRFS": 6,
+                "SRFS": 3,
                 "wght": 200
             }
         },
@@ -81,7 +81,7 @@ textBlocks.append({
         {
             "pct": 1,
             "axes": {
-                "SRFS": 6,
+                "SRFS": 3,
                 "wght": 200
             }
         }
@@ -189,7 +189,7 @@ textBlocks.append({
         {
             "pct": .5,
             "axes": {
-                "wght": 0
+                "wght": 400
             }
         },
         {

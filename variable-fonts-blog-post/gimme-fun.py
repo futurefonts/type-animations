@@ -6,7 +6,7 @@ from utils.hexToRgb import RGBfromHex
 
 fontPath = "../fonts/GimmeConstructoVariable_02.ttf"
 
-exportPath = "./exports/GimmeFun.gif"
+exportPath = "./exports/GimmeGeo.gif"
 
 docWidth=800
 docHeight=int(docWidth * 0.480814)
@@ -16,8 +16,8 @@ saveEnabled = True
 docColor = RGBfromHex('#ffffff')
 defaultTextColor = RGBfromHex('#000000')
 
-numFrames = 100
-defaultFrameDuration = 0.04
+numFrames = 40
+defaultFrameDuration = 0.10
 
 textSize = 260
 leading = textSize * 1.2
