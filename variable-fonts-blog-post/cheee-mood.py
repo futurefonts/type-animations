@@ -6,7 +6,7 @@ from utils.hexToRgb import RGBfromHex
 
 fontPath = "../fonts/CheeeVariable.ttf"
 
-exportPath = "./exports/CheeeMood.gif"
+exportPath = "./exports/CheeeMood.mp4"
 
 docWidth=800
 docHeight=int(docWidth * 0.480814)
@@ -17,7 +17,7 @@ docColor = RGBfromHex('#ffffff')
 defaultTextColor = RGBfromHex('#000000')
 
 numFrames = 50
-defaultFrameDuration = 0.08
+defaultFrameDuration = 1/30
 
 textSize = 220
 leading = textSize * 1.2
